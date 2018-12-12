@@ -8,7 +8,18 @@ public class SsmPermission {
     private Integer role_id;
     private String role_name;
     private String permissions;
-    private String getPermissions_name;
+    private String permissions_name;
+
+
+    @Override
+    public String toString() {
+        return "SsmPermission{" +
+                "role_id=" + role_id +
+                ", role_name='" + role_name + '\'' +
+                ", permissions='" + permissions + '\'' +
+                ", getPermissions_name='" + permissions_name + '\'' +
+                '}';
+    }
 
     public Integer getRole_id() {
         return role_id;
@@ -34,11 +45,13 @@ public class SsmPermission {
         this.permissions = permissions;
     }
 
-    public String getGetPermissions_name() {
-        return getPermissions_name;
+    public String getPermissions_name() {
+        return permissions_name;
     }
 
-    public void setGetPermissions_name(String getPermissions_name) {
-        this.getPermissions_name = getPermissions_name;
+    public void setPermissions_name(String permissions_name) {
+        this.permissions_name = permissions_name;
     }
+
+
 }

@@ -8,4 +8,8 @@ public interface MemberDao {
     SsmMember checkPassword(@Param("MemberVo") MemberVo memberVo);
 
     String getCurrentSalt(@Param("MemberVo") MemberVo memberVo);
+
+
+    String getRoleIdsByUsername(@Param("MemberVo") MemberVo MemberVo);
+
 }
