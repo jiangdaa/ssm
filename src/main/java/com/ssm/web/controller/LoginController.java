@@ -51,27 +51,28 @@ public class LoginController {
         String msg = "登录成功";
         // 实现系统单点登录
         Collection<Session> sessions = sessionDAO.getActiveSessions();
-        if (sessions != null) {
-            for (Session session : sessions) {
-                System.out.println("登录用户" + session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY));
-                if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) != null) {
-                    code = AjaxUtils.ERROR_CODE;
-                    msg = "该账号已在其它地方登录";
-                    return new AjaxUtils(code, msg, null).run();
-                }
-            }
-        }
-        // 账号没有登录过
         SsmMember ssmMember = memberService.checkPassword(username, password);
         if (null == ssmMember) {
             code = AjaxUtils.ERROR_CODE;
             msg = "账号密码错误";
-        } else {
-            Subject subject = SecurityUtils.getSubject();
-            UsernamePasswordToken token =
-                    new UsernamePasswordToken(ssmMember.getUsername(), ssmMember.getPassword());
-            subject.login(token);
+            return new AjaxUtils(code, msg, null).run();
+        }else{
+            if (null != sessions) {
+                for (Session session : sessions) {
+                    if (String.valueOf(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY)).equals(username)) {
+                        code = AjaxUtils.ERROR_CODE;
+                        msg = "该账号已在其它地方登录";
+                        return new AjaxUtils(code, msg, null).run();
+                    }
+                }
+            }
         }
+
+        // 账号没有登录过
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token =
+                new UsernamePasswordToken(ssmMember.getUsername(), ssmMember.getPassword());
+        subject.login(token);
         return new AjaxUtils(code, msg, ssmMember).run();
     }
 

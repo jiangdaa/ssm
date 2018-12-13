@@ -24,7 +24,10 @@ public class PermissionUtils {
         }
 
         for (SsmMenu ssmMenu : childList) {
-            ssmMenu.setChildMenus(PermissionUtils.disposeMenu(ssmMenu.getMenu_id(), menu));
+            // 过滤掉权限节点
+            if (ssmMenu.getType() < 2) {
+                ssmMenu.setChildMenus(PermissionUtils.disposeMenu(ssmMenu.getMenu_id(), menu));
+            }
         }
         if (childList.size() == 0) {
             return null;

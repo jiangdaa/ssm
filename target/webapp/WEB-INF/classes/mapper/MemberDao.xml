@@ -23,6 +23,9 @@
         FROM ssm_member
         WHERE username = #{MemberVo.username}
     </select>
+    <select id="getMemberList" resultType="SsmMember">
+        SELECT member_id,username,is_disable,role_ids,create_time FROM ssm_member LIMIT #{page},#{pagesize}
+    </select>
 
 
 </mapper>

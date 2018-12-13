@@ -48,4 +48,9 @@ public class MainController {
         return "del";
     }
 
+    @RequestMapping("/home")
+    String home(){
+        return "home";
+    }
+
 }

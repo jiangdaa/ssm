@@ -25,4 +25,16 @@ public class AjaxUtils<T> {
     public Map<String, Object> run() {
         return map;
     }
+
+
+    public static Map<String, Object> layuiTable(Integer code, String msg, Integer total, Object data) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", code);
+        map.put("msg", msg);
+        map.put("count", total);
+        map.put("data", data);
+
+        return map;
+    }
 }

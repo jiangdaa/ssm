@@ -8,23 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>后台登录-X-admin2.0</title>
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
-    <link rel="stylesheet" href="../static/css/font.css">
-    <link rel="stylesheet" href="../static/css/xadmin.css">
-    <script type="text/javascript" charset="utf-8" src="../static/lib/jquery.min.3.2.1.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../static/lib/layui/layui.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../static/js/xadmin.js"></script>
-
-</head>
-<body>
+<%@include file="common/header.jsp" %>
 
 <!-- 顶部开始 -->
 <div class="container">
@@ -101,7 +85,6 @@
         </ul>
     </div>
 </div>
-<!-- <div class="x-slide_left"></div> -->
 <!-- 左侧菜单结束 -->
 <!-- 右侧主体开始 -->
 <div class="page-content">
@@ -111,7 +94,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/home' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
     </div>
@@ -124,15 +107,4 @@
     <div class="copyright">Copyright ©2017 x-admin v2.3 All Rights Reserved</div>
 </div>
 <!-- 底部结束 -->
-<script>
-    //百度统计可去掉
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-</body>
-</html>
+<%@include file="common/footer.jsp" %>
