@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MenuDao {
 
-    List<SsmMenu> findActionByPermissionIds(@Param("ids") String ids);
+    List<SsmMenu> findActionByPermissionIds(@Param("ids") String ids, @Param("type") Integer type);
 }

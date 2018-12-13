@@ -7,7 +7,8 @@
     <select id="findActionByPermissionIds" resultType="SsmMenu">
         SELECT *
         FROM ssm_menu
-        WHERE menu_id IN (${ids}) AND type = 3
+        WHERE menu_id IN (${ids})
+              AND type >= #{type}
 
 
     </select>

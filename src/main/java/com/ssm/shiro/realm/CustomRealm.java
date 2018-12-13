@@ -15,6 +15,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,6 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        // 根据数据库信息分配角色
 
         // 查询当前用户角色
         String username = (String) principalCollection.getPrimaryPrincipal();
@@ -58,13 +59,14 @@ public class CustomRealm extends AuthorizingRealm {
             }
             // 根据角色查询对应的功能
             String disStr = permissionIds.substring(0, permissionIds.lastIndexOf(","));
-            List<SsmMenu> permissions = menuDao.findActionByPermissionIds(disStr);
+            List<SsmMenu> permissions = menuDao.findActionByPermissionIds(disStr, 3);
             List<String> permissionList = new ArrayList<>();
             for (SsmMenu ssmMenu : permissions) {
                 permissionList.add(ssmMenu.getCode());
                 System.out.println(ssmMenu.getCode());
             }
             info.addStringPermissions(permissionList);
+            // 缓存对当前用户的菜单信息
             return info;
         }
 

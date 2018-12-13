@@ -2,6 +2,7 @@ package com.ssm.pojo;
 
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "ssm_menu")
 public class SsmMenu {
@@ -16,6 +17,33 @@ public class SsmMenu {
     private Integer is_open;
     private Date create_time;
     private Date edit_time;
+    private List<SsmMenu> childMenus;
+
+    @Override
+    public String toString() {
+        return "SsmMenu{" +
+                "menu_id=" + menu_id +
+                ", parent_id=" + parent_id +
+                ", title='" + title + '\'' +
+                ", icon='" + icon + '\'' +
+                ", type=" + type +
+                ", url='" + url + '\'' +
+                ", code='" + code + '\'' +
+                ", is_disabled=" + is_disabled +
+                ", is_open=" + is_open +
+                ", create_time=" + create_time +
+                ", edit_time=" + edit_time +
+                ", childMenus=" + childMenus +
+                '}';
+    }
+
+    public List<SsmMenu> getChildMenus() {
+        return childMenus;
+    }
+
+    public void setChildMenus(List<SsmMenu> childMenus) {
+        this.childMenus = childMenus;
+    }
 
     public Integer getMenu_id() {
         return menu_id;
