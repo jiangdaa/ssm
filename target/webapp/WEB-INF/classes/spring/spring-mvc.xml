@@ -22,11 +22,72 @@
     <!-- 开启静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>
 
-    <!-- 配置jsp 显示ViewResolver -->
+    <mvc:resources mapping="/js/**" location="/static/js/**"/>
+    <mvc:resources mapping="/css/**" location="/static/css/**"/>
+    <mvc:resources mapping="/images/**" location="/static/images/**"/>
+    <mvc:resources mapping="/fonts/**" location="/static/fonts/**"/>
+    <mvc:resources mapping="/lib/layui/layui.js" location="/static/lib/layui/layui.js"/>
+    <mvc:resources mapping="/lib/layui/css/layui.css" location="/static/lib/layui/css/layui.css"/>
+    <mvc:resources mapping="/lib/**" location="/static/lib/**"/>
+    <mvc:resources mapping="/lib/layui/**" location="/static/lib/layui/**"/>
+
+
+    <!-- 模板引擎使用freemarker 放弃jsp  -->
+
+    <!-- 配置jsp 显示ViewResolver
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/views/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+    -->
+
+    <!-- spring-mvc整合freemarker -->
+
+    <bean id="extendsDirective" class="cn.org.rapid_framework.freemarker.directive.ExtendsDirective"/>
+    <bean id="overrideDirective" class="cn.org.rapid_framework.freemarker.directive.OverrideDirective"/>
+    <bean id="superDirective" class="cn.org.rapid_framework.freemarker.directive.SuperDirective"/>
+    <bean id="blockDirective" class="cn.org.rapid_framework.freemarker.directive.BlockDirective"/>
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">5</prop><!--刷新模板的周期，单位为秒 -->
+                <prop key="default_encoding">UTF-8</prop><!--模板的编码格式 -->
+                <prop key="locale">UTF-8</prop><!-- 本地化设置 -->
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="number_format">0.####</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="whitespace_stripping">true</prop>
+                <prop key="tag_syntax">auto_detect</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <prop key="classic_compatible">true</prop>
+            </props>
+        </property>
+        <property name="templateLoaderPath" value="/ftls/"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 模板扩展 支持模板继承 -->
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="extends" value-ref="extendsDirective"/>
+                <entry key="override" value-ref="overrideDirective"/>
+                <entry key="block" value-ref="blockDirective"/>
+                <entry key="super" value-ref="superDirective"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="viewResolverFtl"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="suffix" value=".ftl"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="requestContextAttribute" value="request"/>
+        <property name="cache" value="true"/>
+        <property name="order" value="0"/>
     </bean>
 
     <!-- 引用shiro -->
@@ -56,10 +117,4 @@
             </props>
         </property>
     </bean>
-
-    <!-- Shiro默认会使用Servlet容器的Session,可通过sessionMode属性来指定使用Shiro原生Session -->
-    <!-- 即<property name="sessionMode" value="native"/>,详细说明见官方文档 -->
-    <!-- 这里主要是设置自定义的单Realm应用,若有多个Realm,可使用'realms'属性代替 -->
-
-
 </beans>

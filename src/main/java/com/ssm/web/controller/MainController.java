@@ -27,7 +27,7 @@ public class MainController {
             List<SsmMenu> ssmMenus = PermissionUtils.disposeMenu(0, permissionMenu);
             model.addAttribute("menu", ssmMenus);
             Gson gson = new Gson();
-            System.out.println(gson.toJson(ssmMenus));
+           // System.out.println(gson.toJson(ssmMenus));
         } else {
             return "redirect:login";
         }

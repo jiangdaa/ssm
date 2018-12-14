@@ -7,14 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../common/header.jsp" %>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="#">系统管理</a>
+        <a href="#"><cite>用户管理</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <table class="layui-hide" id="UserMember" lay-filter="UserMemberFilter"></table>
+</div>
 
-<table class="layui-hide" id="test" lay-filter="test"></table>
 
-<script type="text/html" id="toolbarDemo">
+<script type="text/html" id="TableHeaderTool">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="AddUserEvent">新增用户</button>
     </div>
 </script>
 
@@ -25,12 +34,13 @@
 <script>
     layui.use('table', function () {
         var table = layui.table;
-
         table.render({
-            elem: '#test',
+            elem: '#UserMember',
             url: '/member/getUserList',
-            toolbar: '#toolbarDemo',
+            toolbar: '#TableHeaderTool',
             title: '用户数据表',
+            height: 700,
+            size: 'sm',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'member_id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true},
@@ -43,19 +53,18 @@
         });
 
         //头工具栏事件
-        table.on('toolbar(test)', function (obj) {
+        table.on('toolbar(UserMemberFilter)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'getCheckData':
+                case 'AddUserEvent':
                     var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    layer.open({
+                        title: "新增用户",
+                        type: 2,
+                        content: ['/member/action/add', 'no'],
+                        area: ['600px','600px'],
+                        maxmin: true
+                    });
                     break;
             }
         });

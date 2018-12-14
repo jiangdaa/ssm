@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,11 +20,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
-    <link rel="stylesheet" href="../static/css/font.css">
-    <link rel="stylesheet" href="../static/css/xadmin.css">
-    <script type="text/javascript" charset="utf-8" src="../static/lib/jquery.min.3.2.1.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../static/lib/layui/layui.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../static/js/xadmin.js"></script>
+    <link rel="stylesheet" href="<%=basePath %>static/css/font.css">
+    <link rel="stylesheet" href="<%=basePath %>static/css/xadmin.css">
+    <script type="text/javascript" charset="utf-8" src="<%=basePath %>static/lib/jquery.min.3.2.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=basePath %>static/lib/layui/layui.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=basePath %>static/js/xadmin.js"></script>
 
 </head>
 <body>
